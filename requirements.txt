@@ -1,0 +1,6 @@
+aiogram>=3.13
+httpx
+python-dotenv
+tzdata
+psycopg[binary]>=3.2
+psycopg-pool>=3.2

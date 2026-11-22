@@ -1,0 +1,33 @@
+services:
+  bot:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      WEB_HOST: 0.0.0.0        # внутри контейнера; наружу порт не публикуется
+      WEB_PORT: "8080"
+      DB_PATH: /app/data/f1bot.sqlite3
+      DEV_MODE: "0"
+    volumes:
+      - ./data:/app/data       # база живёт на диске сервера и переживает пересборку
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  caddy:                       # сам получает и продлевает бесплатный HTTPS-сертификат
+    image: caddy:2
+    restart: unless-stopped
+    depends_on: [bot]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:
