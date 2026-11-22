@@ -119,7 +119,7 @@ const userTz = () => { try { return Intl.DateTimeFormat().resolvedOptions().time
 const TEAM_COLORS = {
   red_bull: "#3671c6", ferrari: "#e8002d", mercedes: "#27f4d2", mclaren: "#ff8000",
   aston_martin: "#229971", alpine: "#0093cc", williams: "#64c4ff", rb: "#6692ff",
-  haas: "#b6babd", sauber: "#52e252", audi: "#f50537", cadillac: "#a6a8aa",
+  haas: "#b6babd", sauber: "#52e252", audi: "#f50537", cadillac: "#5A5D62",
 };
 function teamColor(id) {
   if (TEAM_COLORS[id]) return TEAM_COLORS[id];
